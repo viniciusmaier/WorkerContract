@@ -77,11 +77,9 @@ public class Worker {
             System.out.println("Enter contract #" + i + ": ");
             System.out.print("Date(DD/MM/YYYY): ");
             Contract.setDate(LocalDate.parse(scann.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            System.out.println("How many hours this contract: ");
-            Contract.setHours(LocalTime.parse(scann.next(),DateTimeFormatter.ofPattern("HH:mm")));
             System.out.println("Whats's value of hours: ");
             Contract.setValuesPerHours(scann.nextDouble());
-            System.out.println("Duration this contract: ");
+            System.out.println("Duration: ");
             Contract.setDuration(LocalTime.parse(scann.next(), DateTimeFormatter.ofPattern("HH:mm")));
             setHourContract(Contract);
         }
@@ -89,8 +87,10 @@ public class Worker {
     public void removeContract(){
 
     }
-    public double income(){
-        return 0;
+    public Double income(LocalDate date){
+        for (HourContract i: hourContract) {
+            if(i.getDate().equals(date)) return i.getValuesPerHours() * i.getDuration());
+        }
     }
 
     @Override

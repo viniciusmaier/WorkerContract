@@ -1,5 +1,8 @@
 package entities;
 import entities.enums.WorkerLevel;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
@@ -21,5 +24,10 @@ public class Main {
         Worker.setBaseSalary(scann.nextDouble());
         System.out.print("How many contracts you worked? ");
         Worker.addContract(scann.nextInt());
+
+        System.out.println("What date needs calculate? ");
+        Worker.income(LocalDate.parse(scann.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+
     }
 }
