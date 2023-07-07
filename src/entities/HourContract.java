@@ -11,9 +11,10 @@ public class HourContract {
     public HourContract(){
 
     }
-    public HourContract(LocalDate date, double valuesPerHours) {
+    public HourContract(LocalDate date, double valuesPerHours, LocalTime duration) {
         this.date = date;
         this.valuesPerHours = valuesPerHours;
+        this.duration = duration;
     }
 
     public LocalTime getDuration() {

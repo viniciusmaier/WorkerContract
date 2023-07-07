@@ -88,9 +88,17 @@ public class Worker {
 
     }
     public Double income(LocalDate date){
+        Double valueInMinute = null;
+        Double valueInHours = null;
         for (HourContract i: hourContract) {
-            if(i.getDate().equals(date)) return i.getValuesPerHours() * i.getDuration());
+            if(i.getDate().equals(date)) {
+                valueInHours = i.getDuration().getHour() * i.getValuesPerHours();
+                if (i.getDuration().getMinute() <= 60) {
+                    int valueInMinuste = ((i.getDuration().getMinute() * 100) / 60);
+                }
+            };
         }
+        return valueInHours + valueInMinute;
     }
 
     @Override
