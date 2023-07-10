@@ -1,35 +1,35 @@
 package entities;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class HourContract {
-    private LocalDate date;
+    private Date date;
     private double valuesPerHours;
-    private LocalTime duration;
+    private int duration;
     public HourContract(){
 
     }
-    public HourContract(LocalDate date, double valuesPerHours, LocalTime duration) {
+    public HourContract(Date date, double valuesPerHours, int duration) {
         this.date = date;
         this.valuesPerHours = valuesPerHours;
         this.duration = duration;
     }
 
-    public LocalTime getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(LocalTime duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -42,7 +42,7 @@ public class HourContract {
     }
 
     public double totalHours(){
-        return 0;
+        return getValuesPerHours() * getDuration();
     }
 
     @Override

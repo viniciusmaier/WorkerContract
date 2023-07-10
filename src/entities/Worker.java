@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,10 +34,6 @@ public class Worker {
 
     public List<HourContract> getHourContract() {
         return hourContract;
-    }
-
-    public void setHourContract(HourContract contract) {
-        this.hourContract.add(contract);
     }
 
     public Department getDepartment() {
@@ -70,35 +67,26 @@ public class Worker {
     public void setBaseSalary(Double baseSalary) {
         this.baseSalary = baseSalary;
     }
-    public void addContract(int value){
-        for (var i = 0; i < value; i++){
-            Scanner scann = new Scanner(System.in);
-            HourContract Contract = new HourContract();
-            System.out.println("Enter contract #" + i + ": ");
-            System.out.print("Date(DD/MM/YYYY): ");
-            Contract.setDate(LocalDate.parse(scann.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            System.out.println("Whats's value of hours: ");
-            Contract.setValuesPerHours(scann.nextDouble());
-            System.out.println("Duration: ");
-            Contract.setDuration(LocalTime.parse(scann.next(), DateTimeFormatter.ofPattern("HH:mm")));
-            setHourContract(Contract);
-        }
+    public void addContract(HourContract contract){
+        hourContract.add(contract);
     }
-    public void removeContract(){
+    public void removeContract(HourContract contract){
+        hourContract.remove(contract);
+    }
 
-    }
-    public Double income(LocalDate date){
-        Double valueInMinute = null;
-        Double valueInHours = null;
-        for (HourContract i: hourContract) {
-            if(i.getDate().equals(date)) {
-                valueInHours = i.getDuration().getHour() * i.getValuesPerHours();
-                if (i.getDuration().getMinute() <= 60) {
-                    int valueInMinuste = ((i.getDuration().getMinute() * 100) / 60);
-                }
-            };
+    public double income(int year, int month){
+        Calendar calendar = Calendar.getInstance();
+        double sum = getBaseSalary();
+
+        for (HourContract c: hourContract) {
+            calendar.setTime(c.getDate());
+            int calendarMonth = calendar.get(1 + Calendar.MONTH);
+            int calendarYear = calendar.get(Calendar.YEAR);
+            if (calendarMonth == month && calendarYear == year){
+                sum += c.totalHours();
+            }
         }
-        return valueInHours + valueInMinute;
+        return sum;
     }
 
     @Override
